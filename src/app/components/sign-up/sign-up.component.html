@@ -1,0 +1,76 @@
+<div class="displayTable">
+  <div class="displayTableCell">
+    <div class="authBlock">
+      <h3>Sign Up</h3>
+      <form (ngSubmit)="onSubmit()">
+        <div class="formGroup">
+          <input
+            type="email"
+            class="formControl"
+            placeholder="Email Address"
+            #userEmail
+            required
+          />
+        </div>
+        <div class="formGroup">
+          <input
+            type="password"
+            class="formControl"
+            placeholder="Password"
+            #userPwd
+            required
+          />
+        </div>
+        <div class="formGroup">
+          <input
+            type="username"
+            class="formControl"
+            placeholder="username"
+            #userName
+            required
+          />
+        </div>
+
+        <div class="formGroup">
+          <label for="">User Photo</label>
+          <img
+            [src]="imgSrc"
+            class="form-control img-fluid img-preview"
+            style="width: 50px; height: 50px"
+          />
+          <input
+            type="file"
+            class="form-control"
+            accept="image/*"
+            (change)="showPreview($event)"
+            #userPhoto
+            required
+            formControlName="userPhoto" [ngClass]="{'is-invalid': fc.userPhoto.touched && fc.userPhoto.invalid}"
+          />
+          <div *ngIf="fc.userPhoto.errors?.required">
+            <div class="alert alert-danger" *ngIf="fc.userPhoto.touched && fc.userPhoto.invalid">
+              User photo is required.
+            </div>
+          </div>
+        </div>
+
+        <div class="formGroup">
+          <input
+            type="button"
+            class="btn btnPrimary"
+            value="Sign Up"
+            (click)="authService.SignUp(userEmail.value, userPwd.value, userName.value, userPhoto.value)"
+          />
+        </div>
+        <div class="formGroup">
+          <span class="or"><span class="orInner">Or</span></span>
+        </div>
+        <div class="redirectToLogin">
+          <span>Already have an account?
+            <span class="redirect" routerLink="/sign-in">Log In</span>
+          </span>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
